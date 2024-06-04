@@ -40,6 +40,14 @@ h2 {
   font-size: 1.40rem;
 }
 
+.siteName {
+  font-family: "Fredoka", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
 .container {
   background-color: var(--background-color);
 }
@@ -120,7 +128,7 @@ nav ul {
 }
 
 .hero-cta img {
-  width: 75%;
+  width: 125px;
   padding: 5px 0px;
   margin: 0px;
   align-self: flex-start;
@@ -160,15 +168,41 @@ background-color: #ffffff;
   border: 2px solid #b9b9b9;
   display: flex;
 }
+
 .upgrade-image {
   margin: auto;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
+  h1 {
+    font-size: 2.00rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
   .info-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
+
+  .hero-cta h2 {
+    font-size: 2.25rem;
+  }
+
+  .hero-cta p {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+  
+  .hero-cta img {
+    width: 200px;
+  }
+  
+
+
+
 }
 
 
@@ -197,9 +231,22 @@ background-color: #ffffff;
     font-size: 2.40rem;
   }
 
+  .hero-cta h2{
+    font-size: 3rem;
+  }
+
+  .hero-cta p {
+    font-size: 1.75rem;
+    margin: 0;
+  }
+
   .info-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-cta img {
+    width: 250px;
   }
 
 
