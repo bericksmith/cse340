@@ -40,13 +40,6 @@ h2 {
   font-size: 1.40rem;
 }
 
-.siteName {
-  font-family: "Fredoka", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
-}
 
 .container {
   background-color: var(--background-color);
@@ -68,7 +61,18 @@ ul {
   color: black;
 }
 .siteName {
-  font-size: 2rem;
+  font-size: 2.25rem;
+  font-family: "Fredoka", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+#tools { 
+  font-family: "Spectral SC", serif; 
+  font-weight: 700; font-style: normal; 
+  font-size: 1.15rem;
 }
 
 /**** Navigation ****/
