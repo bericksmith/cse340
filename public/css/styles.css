@@ -61,10 +61,7 @@ li {
   justify-content: space-between;
   background-color: var(--background-color);
 }
-.siteName a, #tools a {
-  text-decoration: none;
-  color: black;
-}
+
 .siteName {
   font-size: 2.25rem;
   font-family: "Fredoka", sans-serif;
@@ -72,12 +69,17 @@ li {
   font-weight: 600;
   font-style: normal;
   font-variation-settings: "wdth" 100;
+  text-decoration: none;
+  color: black;
 }
 
 #tools { 
   font-family: "Spectral SC", serif; 
   font-weight: 700; font-style: normal; 
   font-size: 1.15rem;
+  text-decoration: none;
+  color: black;
+
 }
 
 /**** Navigation ****/
