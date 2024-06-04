@@ -38,6 +38,7 @@ h1 {
 
 h2 {
   font-size: 1.40rem;
+  margin: 5px 0px;
 }
 
 
@@ -48,6 +49,10 @@ h2 {
 ul {
   list-style-position: inside;
   padding-left: 0;
+}
+
+li {
+  padding-bottom: 7px;
 }
 
 /**** Header ****/
@@ -165,12 +170,18 @@ background-color: #ffffff;
   flex-direction: column;
   justify-content: center;
 }
-.upgrade-item {
+.item {
   background-color: var(--primary-color);
   width: 80%;
   height: 100px;
   border: 2px solid #b9b9b9;
   display: flex;
+}
+
+.link {
+  text-decoration: underline;
+  color: var(--text-color);
+  font-weight: bold;
 }
 
 .upgrade-image {
