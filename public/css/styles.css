@@ -21,7 +21,7 @@
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: .75rem;
-  margin: 0 auto;
+  margin: 15px auto;
   padding: 10px;
   background-color: var(--background-color);
 }
@@ -179,6 +179,7 @@ background-color: #ffffff;
 
   :root {
     background-image: url("/images/site/checkerboard.jpg");
+    background-repeat: repeat;
   }
 
 
