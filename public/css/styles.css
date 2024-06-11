@@ -71,7 +71,6 @@ li {
 .siteName {
   font-size: 2.25rem;
   font-family: "Fredoka", sans-serif;
-  font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
   font-variation-settings: "wdth" 100;
@@ -230,10 +229,6 @@ background-color: #ffffff;
   .hero-cta img {
     width: 200px;
   }
-  
-
-
-
 }
 
 
