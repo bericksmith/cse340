@@ -238,6 +238,7 @@ background-color: #ffffff;
 
   :root {
     background-image: url("/images/site/checkerboard.jpg");
+    background-size: auto auto;
     background-repeat: repeat;
   }
 
