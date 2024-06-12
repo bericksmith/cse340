@@ -4,7 +4,7 @@ CREATE TYPE public.account_type AS ENUM
     ('Client', 'Employee', 'Admin');
 
 ALTER TYPE public.account_type
-    OWNER TO cse340db;
+    OWNER TO cse340_1;
 
 
 
@@ -73,7 +73,7 @@ VALUES ('Custom'),
 
 -- Verify
 SELECT * FROM public.classification
-ORDER BY classification_id ASC
+ORDER BY classification_id ASC;
 
 
 
@@ -267,8 +267,8 @@ VALUES   (
 --  Query 4:
 
 UPDATE inventory
-SET description = REPLACE(description, 'small interiors', 'a huge interior')
-WHERE make = 'GM' AND model = 'Hummer';
+SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')
+WHERE inv_make = 'GM' AND inv_model = 'Hummer';
 
 -- Query 6:
 
