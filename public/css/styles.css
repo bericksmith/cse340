@@ -18,6 +18,10 @@
   --active-color: #004085;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: .75rem;
@@ -214,6 +218,7 @@ background-color: #ffffff;
 #inv-display {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
   margin: 0 auto;
   list-style: none;
@@ -246,6 +251,11 @@ background-color: #ffffff;
   color: black;
 }
 
+#inv-display li img {
+  height: 120px;
+  margin: auto;
+  }
+
 .namePrice {
 padding: 5px 0px;
 align-items: center;
@@ -264,13 +274,11 @@ margin: 0;
 
 .namePrice span {
 display: block;
+font-size: .90rem;
+font-weight: bold;
 }
 
-#inv-display li img {
-max-width: 100%;
-max-height: 90%;
-margin: auto;
-}
+
 
 
 
