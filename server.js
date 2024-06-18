@@ -49,20 +49,25 @@ app.use(async (req, res, next) => {
 * Place after all other middleware
 *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav()
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ 
-    message = err.message
+  let nav = await utilities.getNav();
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+  let message = '';
+  if (err.status === 404) { 
+    message = err.message;
+    res.status(404).render("errors/error", {
+      title: '404 - Not Found',
+      message,
+      nav
+    });
   } else {
-    message = '<h1>Oh no!</h1> <p>There was a crash. Maybe try a different route?</p>'
+    message = '<h1>Oh no!</h1> <p>There was a crash. Maybe try a different route?</p>';
+    res.status(500).render("errors/error", {
+      title: 'Server Error',
+      message,
+      nav
+    });
   }
-  res.render("errors/error", {
-    title: err.status || 'Server Error',
-    message,
-    nav
-  })
-})
-
+});
 
 /* ***********************
  * Local Server Information
