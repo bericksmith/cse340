@@ -36,6 +36,7 @@ h1, h2, h3, h4, h5 {
 
 h1 {
   font-size: 1.75rem;
+  margin: 10px;
 }
 
 h2 {
@@ -285,9 +286,12 @@ nav a:hover {
 }
 
 .vehicle-detail h2 {
+  background-color: #000;
+  color: #fff;
   font-size: 1.5rem;
-  padding: 5px;
+  padding: 5px 10px;
   border-bottom: 2px solid rgb(136, 136, 136);
+  margin: 0px;
 }
 
 .vehicle-detail .details {
@@ -301,7 +305,7 @@ nav a:hover {
 .even, .odd{
   margin: 2px 0px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 5px;
+  padding: 10px;
   margin: 0px;
 }
 
