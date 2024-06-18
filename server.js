@@ -41,7 +41,7 @@ app.use('/error', utilities.handleErrors(errorRoute))
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
-  next({status: 404, message: '<h1>Oops...It broke!</h1>Sorry, we appear to have lost that page.(404)'})
+  next({status: 404, message: '<h1>Oops...It broke!</h1><p>Sorry, we appear to have lost that page.(404)</p>'})
 })
 
 /* ***********************
@@ -54,7 +54,7 @@ app.use(async (err, req, res, next) => {
   if(err.status == 404){ 
     message = err.message
   } else {
-    message = '<h1>Oh no!</h1> There was a crash. Maybe try a different route?'
+    message = '<h1>Oh no!</h1> <p>There was a crash. Maybe try a different route?</p>'
   }
   res.render("errors/error", {
     title: err.status || 'Server Error',
