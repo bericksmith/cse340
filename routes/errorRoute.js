@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const errorController = require("../controllers/errorController");
 
-// Route to intentional error
-router.get("/start-error", errorController.triggerError);
+// Route for an intentional error
+router.get("/start-error", errorController.startError);
 
 module.exports = router;
 

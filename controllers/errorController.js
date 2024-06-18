@@ -1,7 +1,7 @@
 const errorController = {};
 
-// Controller function forintentional error
-errorController.triggerError = (req, res, next) => {
+// Controller function for an intentional error
+errorController.startError = (req, res, next) => {
     try {
         nonExistentFunction();
     } catch (error) {

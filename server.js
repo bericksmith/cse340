@@ -44,7 +44,6 @@ app.use(async (req, res, next) => {
   next({status: 404, message: '<h1>Oops...It broke!</h1>Sorry, we appear to have lost that page.(404)'})
 })
 
-
 /* ***********************
 * Express Error Handler
 * Place after all other middleware
@@ -63,6 +62,7 @@ app.use(async (err, req, res, next) => {
     nav
   })
 })
+
 
 /* ***********************
  * Local Server Information

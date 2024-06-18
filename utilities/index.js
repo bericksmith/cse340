@@ -35,9 +35,9 @@ Util.buildClassificationGrid = async function(data){
       grid += '<li>'
       grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
       + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-      + 'details"><img src="' + vehicle.inv_thumbnail 
-      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-      +' on CSE Motors" /></a>'
+      + ' details"><img src="' + vehicle.inv_thumbnail 
+      +'" alt="'+ vehicle.inv_make + ' ' + vehicle.inv_model 
+      +' image - on CSE Motors" /></a>'
       grid += '<div class="namePrice">'
       grid += '<hr />'
       grid += '<h2>'
@@ -61,15 +61,16 @@ Util.buildClassificationGrid = async function(data){
 * Vehicle details into HTML
 * ************************************ */
 Util.formatInventoryDetail = function(vehicle) {
-  let htmlContent = "<div class='vehicle-detail'>";
- htmlContent += `<img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}" class="center">`;
- htmlContent += "<div class='details'>";
- htmlContent += `<h2 class="center">${vehicle.inv_make} ${vehicle.inv_model}</h2>`;
- htmlContent += `<p><strong>Year:</strong> ${vehicle.inv_year}</p>`;
- htmlContent += `<p><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>`;
- htmlContent += `<p><strong>Miles:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</p>`;
- htmlContent += `<p><strong>Color:</strong> ${vehicle.inv_color}</p>`;
- htmlContent += `<p><strong>Description:</strong> ${vehicle.inv_description}</p>`;
+  let htmlContent = `<h1>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h1>`; 
+ htmlContent += `<div class='vehicle-detail'>`;
+ htmlContent += `<img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model} image on CSE Motors" class="center">`;
+ htmlContent += `<div class='details'>`;
+ htmlContent += `<h2 class="center">${vehicle.inv_make} ${vehicle.inv_model} Details</h2>`;
+ htmlContent += `<p class="odd"><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>`;
+ htmlContent += `<p class="even"><strong>Description:</strong> ${vehicle.inv_description}</p>`;
+ htmlContent += `<p class="odd"><strong>Color:</strong> ${vehicle.inv_color}</p>`;
+ htmlContent += `<p class="even"><strong>Miles:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</p>`;
+ htmlContent += `<p class="odd"><strong>Year:</strong> ${vehicle.inv_year}</p>`;
  htmlContent += `</div>`;
  htmlContent += `</div>`;
  return htmlContent;

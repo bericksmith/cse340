@@ -36,7 +36,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
       res.render("errors/error", {
           title: "Error",
           nav,
-          message: "No inventory items found for this classification.",
+          message: "No inventory items found for this classification. Please select from the menu above.",
       });
     }
   } catch (error) {
