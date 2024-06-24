@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>
+        <%= title %>
+    </h1>
+    <%- messages() %>
+    <!-- CSE Motor Login Form -->
+    <form id="loginForm" action="/account/login" method="post">
+        <div class="form-group">
+            <label for="account_email">Email:</label>
+            <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>">
+        </div>
+        <div class="form-group">
+            <label for="account_password">Password:</label>
+            <input type="password" name="account_password" id="account_password" required
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- If not registered -- Registration Link -->
+    <p>No account? <a href="/account/register">Sign-up</a></p>
+</div>
