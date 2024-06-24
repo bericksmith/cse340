@@ -13,29 +13,37 @@
 <%  }) %>
  </ul>
 <% } %>
-
+<div class="form-container">
+<p><b>All Fields are required.</b></p>
 <form class="form" id="register" action="/account/register" method="post">
   <fieldset>
-    <legend>Registration Information</legend>
-    <div><label for="account_firstname">First Name*</label>
-    <input type="text" name="account_firstname" id="account_firstname" required value="<%= locals.account_firstname %>"></div>
-    <div><label for="account_lastname">Last Name*</label>
-    <input type="text" name="account_lastname" id="account_lastname" required autocomplete="family-name" value="<%= locals.account_lastname %>"></div>
-    <div><label for="account_email">Email Address*</label> 
+    <div class="form-group"><label for="account_firstname">First Name:</label>
+      <input type="text" name="account_firstname" id="account_firstname" required value="<%= locals.account_firstname %>"></div>
+    <div class="form-group"><label for="account_lastname">Last Name:</label>
+      <input type="text" name="account_lastname" id="account_lastname" required autocomplete="family-name" value="<%= locals.account_lastname %>"></div>
+    <div class="form-group"><label for="account_email">Email Address:</label>
       <input type="email" name="account_email" required placeholder="abc@google.com" value="<%= locals.account_email %>"></div>
-    <div><label for="account_password">Password*</label>
+    <div class="form-group"><label for="account_password">Password:</label>
       <input type="password" name="account_password" id="password" required 
-        pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{12,}" 
-        title="Password must be at least 12 characters long, contain at least one uppercase letter, one number, and one special character.">
-      <button type="button" id="togglePassword" aria-label="Toggle password visibility">👁️</button></div>
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" 
+        title="Password must be at least 12 characters, contain at least one uppercase letter, one number, and one special character.">
+        <p><i>Password must be a minimum of 12 characters and include 1 capital letter, 1 number and 1 special character.</i></p>
+      <button type="button" id="togglePassword" aria-label="Toggle password visibility">Show Password</button></div>
+      <input class="form-button" type="submit" value="Register">
   </fieldset>
-  <input type="submit" value="Register">
 </form>
+</div>
 <script>
-  document.getElementById('togglePassword').addEventListener('click', function (e) {
-    const passwordInput = document.getElementById('password');
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-    this.textContent = type === 'password' ? '👁️' : '👁️';
-  });
+const pswdBtn = document.querySelector("#togglePassword");
+pswdBtn.addEventListener("click", function() {
+  const pswdInput = document.getElementById("password");
+  const type = pswdInput.getAttribute("type");
+  if (type == "password") {
+    pswdInput.setAttribute("type", "text");
+    pswdBtn.innerHTML = "Hide Password";
+  } else {
+    pswdInput.setAttribute("type", "password");
+    pswdBtn.innerHTML = "Show Password";
+  }
+});
 </script>
