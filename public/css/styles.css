@@ -352,7 +352,11 @@ footer {
   color: rgb(255, 0, 0);
 }
 
-
+ul.no-bullets {
+  list-style-type: none;
+  padding-left: 40px;
+  margin: 0;
+}
 
 
 
@@ -396,7 +400,7 @@ footer {
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: left;
 }
 
@@ -404,6 +408,14 @@ footer {
   display: block;
   margin-bottom: 5px;
   font-size: .85rem;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
 }
 
 .form-group input {
