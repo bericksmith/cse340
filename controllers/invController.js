@@ -1,7 +1,7 @@
 const invModel = require("../models/inventory-model")
-
+const defaultImagePath = "/images/vehicles/no-image.png";
+const defaultThumbnailPath = "/images/vehicles/no-image-tn.png";
 const utilities = require("../utilities/")
-
 const invCont = {}
 
 /* ***************************
@@ -64,6 +64,128 @@ invCont.showInventoryDetail = async function(req, res, next) {
   }
 };
 
+/* ***************************
+ *  Build management view
+ * ************************** */
+invCont.managementView = async function (req, res, next) {
+  try {
+      let nav = await utilities.getNav();
+      // Check if there's any flash message
+      const flashMessage = req.flash("message");
+      let messages = [];
+      if (flashMessage.length > 0) {
+          messages.push({ type: "success", text: flashMessage[0] });
+      }
+      const classificationList = await utilities.buildClassificationList();
+      res.render("./inventory/management", {
+          title: "Inventory Management",
+          messages: messages, // Pass flash messages to the view
+          nav,
+          classificationList: classificationList,
+      });
+  } catch (error) {
+      next(error); // Pass error to error handling middleware
+  }
+};
+
+/* ***************************
+ *  Build add classifications view
+ * ************************** */
+invCont.addClassificationView = async function (req, res, next) {
+  try {
+      let nav = await utilities.getNav()
+      const flashMessage = req.flash("message");
+      let messages = [];
+      if (flashMessage.length > 0) {
+          messages.push({ type: "success", text: flashMessage[0] });
+      }
+      res.render("./inventory/add-classification", {
+          title: "Add New Classification",
+          messages: messages,
+          nav,
+          errors: [],
+      });
+  } catch (error) {
+      next(error);
+  }
+};
+
+/* ***************************
+* adding a new classification
+* ************************** */
+invCont.addClassification = async function (req, res, next) {
+  try {
+      const { classification_name } = req.body;
+      // Server-side validation
+      if (!classification_name || classification_name.includes(" ") || /[^a-zA-Z0-9]/.test(classification_name)) {
+          req.flash("message", "Classification name cannot contain spaces or special characters.");
+          res.redirect("/inv/add-classification");
+          return;
+      }
+      // Insert new classification into the database
+      await invModel.addClassification(classification_name);
+
+      // Flash success message
+      req.flash("message", "New classification added successfully.");
+
+      // Redirect to the management view
+      res.redirect("/inv");
+  } catch (error) {
+      req.flash("error", "Failed to add new classification.");
+      res.redirect("/inv/add-classification");
+  }
+};
+
+
+/* ***************************
+ *  Build add to inventory view
+ * ************************** */
+invCont.addInventoryView = async function (req, res, next) {
+  try {
+      let nav = await utilities.getNav();
+      const flashMessage = req.flash("message");
+      const errors = req.flash("error");
+      const messages = flashMessage.map(message => ({ type: "success", text: message }));
+      const classificationList = await utilities.buildClassificationList();
+      const { classification_id } = req.body;
+
+      res.render("./inventory/add-inventory", {
+          title: "Add New Vehicle",
+          messages: messages,
+          nav,
+          errors: errors,
+          classificationList: classificationList,
+          classification_id: classification_id || "",
+      });
+  } catch (error) {
+      next(error);
+  }
+};
+
+/* ***************************
+ *  add to inventory
+ * ************************** */
+
+invCont.addInventory = async function (req, res, next) {
+  try {
+      const { inv_make, inv_model, inv_year, classification_id, inv_description, inv_price, inv_miles, inv_color } = req.body;
+      // Set default image paths
+      const inv_image = defaultImagePath;
+      const inv_thumbnail = defaultThumbnailPath;
+
+      // Insert inventory item into the database
+      await invModel.addInventory(inv_make, inv_model, inv_year, classification_id, inv_description, inv_price, inv_miles, inv_color, inv_image, inv_thumbnail);
+
+      // Flash success message
+      req.flash("message", "New inventory item added successfully.");
+
+      // Redirect to the management view
+      res.redirect("/inv");
+  } catch (error) {
+      req.flash("error", "Failed to add new inventory item.");
+      res.redirect("/inv/add-inventory");
+  }
+};
 
 module.exports = invCont
 
