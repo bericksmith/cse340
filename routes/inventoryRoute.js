@@ -13,15 +13,13 @@ router.get("/add-classification", invController.addClassificationView);
 router.get("/add-inventory", invController.addInventoryView);
 
 router.post(
-    "/add-classification", 
-    classValidate.classificationRules(),
+    "/add-classification",
     classValidate.checkclassData,
     invController.addClassification
 );
 
 router.post(
     "/add-inventory", 
-    classValidate.addInventoryRules(),
     classValidate.checkInvData,
     invController.addInventory
 );

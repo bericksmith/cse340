@@ -359,7 +359,9 @@ ul.no-bullets {
   margin: 0;
 }
 
-
+.message-container {
+  padding-left: 50px;
+}
 
 
 

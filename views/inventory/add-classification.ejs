@@ -1,14 +1,24 @@
 <div class="container">
   <h1>Add New Classification</h1>
-  <% if (messages.length> 0) { %> <% messages.forEach(message=> { %>
-  <div class="alert alert-<%= message.type %>"><%= message.text %></div>
-  <% }) %> <% } %> <% if (errors.length> 0) { %>
-  <div class="alert alert-danger">
-    <% errors.forEach(error=> { %>
-    <p><%= error.msg %></p>
+  <div class="message-container">
+    <% if (messages.length> 0) { %>
+    <% messages.forEach(message=> { %>
+        <div class="alert alert-<%= message.type %>">
+            <%= message.text %>
+        </div>
     <% }) %>
-  </div>
-  <% } %>
+    <% } %>
+
+    <% if (errors.length> 0) { %>
+        <% errors.forEach(error=> { %>
+            <div class="error">
+                <%= error %>
+            </div>
+        <% }) %>
+<% } %>
+</div>
+
+
   <div class="form-container">
     <form
       id="addClassificationForm"
