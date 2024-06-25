@@ -25,39 +25,95 @@
         </div>
         <div class="form-group">
             <label for="inv_make">Make:</label>
-            <input type="text" id="inv_make" name="inv_make" required value="<%= locals.inv_make %>">
+            <input 
+                type="text" 
+                id="inv_make" 
+                name="inv_make" 
+                placeholder="Min of 3 characters" 
+                required 
+                pattern="^[a-zA-Z]{3}$"
+                value="<%= locals.inv_make %>">
         </div>
         <div class="form-group">
             <label for="inv_model">Model:</label>
-            <input type="text" id="inv_model" name="inv_model" required value="<%= locals.inv_model %>">
+            <input 
+                type="text" 
+                id="inv_model" 
+                name="inv_model" 
+                placeholder="Min of 3 characters" 
+                required 
+                pattern="^[a-zA-Z]{3}$"
+                value="<%= locals.inv_model %>">
         </div>
         <div class="form-group">
             <label for="inv_description">Description:</label>
-            <textarea rows="4" cols="35" id="inv_description" name="inv_description" value="<%= locals.inv_description %>"></textarea>
+            <textarea 
+                rows="4" 
+                cols="35" 
+                id="inv_description" 
+                name="inv_description" 
+                value="<%= locals.inv_description %>">
+        </textarea>
         </div>
         <div class="form-group">
             <label for="image">Image Path:</label>
-            <input type="text" id="inv_image" name="inv_image" required value="/images/vehicles/no-image.png">
+            <input 
+                type="text" 
+                id="inv_image" 
+                name="inv_image" 
+                required 
+                value="/images/vehicles/no-image.png">
         </div>
         <div class="form-group">
             <label for="thumbnail">Thumbnail Path:</label>
-            <input type="text" id="inv_thumbnail" name="inv_thumbnail" required value="/images/vehicles/no-image-tn.png">
+            <input 
+                type="text" 
+                id="inv_thumbnail" 
+                name="inv_thumbnail" 
+                required value="/images/vehicles/no-image-tn.png">
         </div>
         <div class="form-group">
             <label for="inv_price">Price:</label>
-            <input type="number" id="inv_price" name="inv_price" placeholder="Numbers only" required value="<%= locals.inv_price %>">
+            <input 
+                type="number" 
+                id="inv_price" 
+                name="inv_price" 
+                placeholder="Decimal or integer" 
+                required 
+                pattern="^\d+(\.\d+)?$"
+                value="<%= locals.inv_price %>">
         </div>
         <div class="form-group">
             <label for="inv_year">Year:</label>
-            <input type="number" id="inv_year" name="inv_year" placeholder="4 digits" required value="<%= locals.inv_year %>">
+            <input 
+                type="text" 
+                id="inv_year" 
+                name="inv_year" 
+                placeholder="YYYY" 
+                required 
+                pattern="^\d{4}$"
+                maxlength="4"
+                value="<%= locals.inv_year %>">
         </div>
         <div class="form-group">
             <label for="inv_miles">Miles:</label>
-            <input type="number" id="inv_miles" name="inv_miles" required value="<%= locals.inv_miles %>">
+            <input 
+                type="text" 
+                id="inv_miles" 
+                name="inv_miles" 
+                placeholder="Digits only" 
+                required 
+                pattern="^\d+$"
+                value="<%= locals.inv_miles %>">
         </div>
         <div class="form-group">
             <label for="inv_color">Color:</label>
-            <input type="text" id="inv_color" name="inv_color" required value="<%= locals.inv_color %>">
+            <input 
+                type="text" 
+                id="inv_color" 
+                name="inv_color" 
+                required 
+                value="<%= locals.inv_color %>">
         </div>
         <button type="submit" class="form-button">Add Vehicle</button>
     </form>
