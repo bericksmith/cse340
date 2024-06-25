@@ -335,7 +335,8 @@ footer {
   text-decoration: none; 
   border: 2px solid  rgb(172, 0, 0);
   border-radius: 9px;
-  padding: 5px 15px;
+  padding: 2px 15px;
+  font-size: .75rem;
 }
 
 .error-btn:hover{
