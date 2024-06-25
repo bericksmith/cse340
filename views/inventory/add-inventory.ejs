@@ -20,7 +20,7 @@
         <p><b>All fields are required.</b></p>
         <fieldset>
         <div class="form-group">
-            <label for="classification_id">Classification:</label>
+            <label for="ClassificationList">Classification:</label>
             <%- classificationList %>
         </div>
         <div class="form-group">
@@ -52,11 +52,13 @@
                 cols="35" 
                 id="inv_description" 
                 name="inv_description" 
+                pattern="^[a-zA-Z0-9\s\p{P}]{1,500}$"
+                required
                 value="<%= locals.inv_description %>">
         </textarea>
         </div>
         <div class="form-group">
-            <label for="image">Image Path:</label>
+            <label for="inv_image">Image Path:</label>
             <input 
                 type="text" 
                 id="inv_image" 
@@ -65,7 +67,7 @@
                 value="/images/vehicles/no-image.png">
         </div>
         <div class="form-group">
-            <label for="thumbnail">Thumbnail Path:</label>
+            <label for="inv_thumbnail">Thumbnail Path:</label>
             <input 
                 type="text" 
                 id="inv_thumbnail" 

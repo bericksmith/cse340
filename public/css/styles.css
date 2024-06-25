@@ -425,7 +425,7 @@ ul.no-bullets {
   box-sizing: border-box;
 }
 
-.form-group input:focus:invalid {
+.form-group input:focus:invalid,  textarea:required:invalid{
   background-color: rgb(255, 188, 188);
   background-image: url("/images/site/invalid.png");
   background-size: 16px 16px;
@@ -433,7 +433,7 @@ ul.no-bullets {
   background-repeat: no-repeat;  
 }
 
-.form-group input:required:valid {
+.form-group input:required:valid, textarea:required:valid{
   background-color: rgb(182, 255, 182);
   background-image: url("/images/site/valid.png");
   background-size: 16px 16px;
