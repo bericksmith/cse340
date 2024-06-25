@@ -17,7 +17,7 @@
 <% } %>
 <div class="form-container">
     <form id="addVehicleForm" action="/inv/add-inventory" method="post">
-        <p>All fields are required.</p>
+        <p><b>All fields are required.</b></p>
         <fieldset>
         <div class="form-group">
             <label for="classification_id">Classification:</label>
@@ -45,11 +45,11 @@
         </div>
         <div class="form-group">
             <label for="inv_price">Price:</label>
-            <input type="number" id="inv_price" name="inv_price" required value="<%= locals.inv_price %>">
+            <input type="number" id="inv_price" name="inv_price" placeholder="Numbers only" required value="<%= locals.inv_price %>">
         </div>
         <div class="form-group">
             <label for="inv_year">Year:</label>
-            <input type="number" id="inv_year" name="inv_year" required value="<%= locals.inv_year %>">
+            <input type="number" id="inv_year" name="inv_year" placeholder="4 digits" required value="<%= locals.inv_year %>">
         </div>
         <div class="form-group">
             <label for="inv_miles">Miles:</label>
