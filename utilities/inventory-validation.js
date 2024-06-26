@@ -40,6 +40,10 @@ validate.checkclassData = async (req, res, next) => {
  * ************************ */
 validate.addInventoryRules = () => {
   return [
+    body("classification_id")
+      .notEmpty()
+      .withMessage("Please provide a classification"),
+
     body("inv_make")
       .trim()
       .escape()
@@ -54,19 +58,13 @@ validate.addInventoryRules = () => {
       .isLength({ min: 2 })
       .withMessage("Please provide a vehicle model name."),
 
-    body("inv_year")
-      .trim()
-      .notEmpty()
-      .matches(/^\d{4}$/)
-      .withMessage("Please provide year for the vehicle."),
-
     body("inv_description")
       .trim()
       .escape()
       .notEmpty()
       .isLength({ min: 2 })
       .withMessage("Please provide a vehicle description."),
-
+      
     body("inv_image")
       .trim()
       .notEmpty()
@@ -85,6 +83,12 @@ validate.addInventoryRules = () => {
       .matches(/^\d+$/)
       .withMessage("Please provide price for the vehicle."),
 
+    body("inv_year")
+      .trim()
+      .notEmpty()
+      .matches(/^\d{4}$/)
+      .withMessage("Please provide year for the vehicle."),
+
     body("inv_miles")
       .trim()
       .notEmpty()
@@ -96,11 +100,8 @@ validate.addInventoryRules = () => {
       .escape()
       .notEmpty()
       .isLength({ min: 1 })
-      .withMessage("Please provide a vehicle color"),
+      .withMessage("Please provide a vehicle color"), 
 
-    body("classification_id")
-      .notEmpty()
-      .withMessage("Please provide a classification"),
   ];
 };
 
@@ -120,16 +121,19 @@ validate.checkInvData = async (req, res, next) => {
     inv_color,
     classification_id,
   } = req.body;
-  let errors = [];
-  errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    let nav = utilities.getNav();
-    let classificationList = utilities.buildClassificationList;
-    res.render("inventory/addInventory", {
+
+  let errors = validationResult(req).array(); // Convert validation result to array
+
+  if (errors.length > 0) {
+    let nav = await utilities.getNav(); // Resolve the promise
+    let classificationList = await utilities.buildClassificationList(classification_id); // Resolve the promise
+
+    res.render("inventory/add-inventory", {
       errors,
       title: "Add Inventory",
       nav,
       classificationList,
+      classification_id,
       inv_make,
       inv_model,
       inv_year,
@@ -139,52 +143,6 @@ validate.checkInvData = async (req, res, next) => {
       inv_price,
       inv_miles,
       inv_color,
-      classification_id,
-    });
-    return;
-  }
-  next();
-};
-
-/* *************************
- * Check data and return errors or continue to update
- * ************************ */
-validate.checkUpdateData = async (req, res, next) => {
-  const {
-    inv_id,
-    inv_make,
-    inv_model,
-    inv_year,
-    inv_description,
-    inv_image,
-    inv_thumbnail,
-    inv_price,
-    inv_miles,
-    inv_color,
-    classification_id,
-  } = req.body;
-  let errors = [];
-  errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    let nav = utilities.getNav();
-    let classificationList = utilities.buildClassificationList;
-    const itemname = `${inv_make} ${inv_model}`;
-    res.render("./inventory/edit-inventory", {
-      errors,
-      title: "Edit " + itemname,
-      nav,
-      classificationList,
-      inv_id,
-      inv_make,
-      inv_model,
-      inv_year,
-      inv_description,
-      inv_image,
-      inv_thumbnail,
-      inv_price,
-      inv_miles,
-      inv_color,
-      classification_id,
     });
     return;
   }
