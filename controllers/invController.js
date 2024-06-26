@@ -176,15 +176,15 @@ invCont.addInventory = async function (req, res) {
     const messages = [];
 
     if (!classification_id) {
-      messages.push("Classification is required.");
+      messages.push("<li>Classification is required.</li>");
     }
     if (!inv_make) {
-      messages.push("Make is required.");
+      messages.push("<li>Make is required.</li>");
     } else if (inv_make.includes(" ") || /[^a-zA-Z0-9]/.test(inv_make)) {
       messages.push("Make cannot contain spaces or special characters.");
     }
     if (!inv_model) {
-      messages.push("Model is required.");
+      messages.push("<li>Model is required.</li>");
     } else if (inv_model.includes(" ") || /[^a-zA-Z0-9]/.test(inv_model)) {
       messages.push("Model cannot contain spaces or special characters.");
     }
@@ -227,7 +227,7 @@ invCont.addInventory = async function (req, res) {
     // Redirect to the management view
     return res.redirect("/inv");
   } catch (error) {
-    console.error('Error adding inventory:', error);  // Detailed error logging
+    console.error('Error adding inventory:', error);
     req.flash("error", "Failed to add new inventory item.");
     return res.redirect("/inv/add-inventory");
   }

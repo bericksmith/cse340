@@ -4,7 +4,9 @@
         <% if (messages && messages.length > 0) { %>
             <% messages.forEach(message => { %>
                 <div class="alert alert-<%= message.type %>">
-                    <%= message.text%><br>
+                    <ul>
+                        <%- message.text%>
+                    </ul>
                 </div>
             <% }) %>
         <% } %>
