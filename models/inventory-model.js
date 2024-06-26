@@ -55,10 +55,10 @@ async function addClassification(classification_name) {
 /* ***************************
 * add new inventory to the database
 * ************************** */
-async function addInventory(inv_make, inv_model, inv_year, classification_id, inv_description, inv_price, inv_miles, inv_color, inv_image, inv_thumbnail) {
+async function addInventory(classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color) {
   try {
-    const query = 'INSERT INTO inventory (inv_make, inv_model, inv_year, inv_description, classification_id, inv_price, inv_miles, inv_color, inv_image, inv_thumbnail) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
-    await pool.query(query, [inv_make, inv_model, inv_year, inv_description, classification_id, inv_price, inv_miles, inv_color, inv_image, inv_thumbnail]);
+    const query = 'INSERT INTO inventory (classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+    await pool.query(query, [classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color]);
   } catch (error) {
     console.error("Error adding vehicle:", error);
     throw error;

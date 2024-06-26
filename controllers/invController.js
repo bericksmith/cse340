@@ -1,6 +1,4 @@
 const invModel = require("../models/inventory-model")
-const defaultImagePath = "/images/vehicles/no-image.png";
-const defaultThumbnailPath = "/images/vehicles/no-image-tn.png";
 const utilities = require("../utilities/")
 const invCont = {}
 
@@ -113,15 +111,16 @@ invCont.addClassificationView = async function (req, res, next) {
 /* ***************************
 * adding a new classification
 * ************************** */
-invCont.addClassification = async function (req, res, next) {
+invCont.addClassification = async function (req, res) {
   try {
       const { classification_name } = req.body;
+
       // Server-side validation
       if (!classification_name || classification_name.includes(" ") || /[^a-zA-Z0-9]/.test(classification_name)) {
           req.flash("message", "Classification name cannot contain spaces or special characters.");
-          res.redirect("/inv/add-classification");
-          return;
+          return res.redirect("/inv/add-classification");
       }
+
       // Insert new classification into the database
       await invModel.addClassification(classification_name);
 
@@ -129,13 +128,12 @@ invCont.addClassification = async function (req, res, next) {
       req.flash("message", "New classification added successfully.");
 
       // Redirect to the management view
-      res.redirect("/inv");
+      return res.redirect("/inv");
   } catch (error) {
       req.flash("error", "Failed to add new classification.");
-      res.redirect("/inv/add-classification");
+      return res.redirect("/inv/add-classification");
   }
 };
-
 
 /* ***************************
  *  Build add to inventory view
@@ -162,30 +160,57 @@ invCont.addInventoryView = async function (req, res, next) {
   }
 };
 
+
+
 /* ***************************
  *  add to inventory
  * ************************** */
-
-invCont.addInventory = async function (req, res, next) {
+invCont.addInventory = async function (req, res) {
   try {
-      const { inv_make, inv_model, inv_year, classification_id, inv_description, inv_price, inv_miles, inv_color } = req.body;
-      // Set default image paths
-      const inv_image = defaultImagePath;
-      const inv_thumbnail = defaultThumbnailPath;
+      const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body;
+      
+      // Server-side validation
+      const messages = [];
+      if (!classification_id || !inv_make || !inv_model || !inv_description || !inv_price || !inv_year || !inv_miles || !inv_color) {
+          messages.push("All fields are required.");
+      }
+      if (inv_make.includes(" ") || /[^a-zA-Z0-9]/.test(inv_make)) {
+          messages.push("Make cannot contain spaces or special characters.");
+      }
+      if (inv_model.includes(" ") || /[^a-zA-Z0-9]/.test(inv_model)) {
+          messages.push("Model cannot contain spaces or special characters.");
+      }
+      if (isNaN(inv_price) || inv_price <= 0) {
+          messages.push("Price must be a positive number.");
+      }
+      if (isNaN(inv_year) || inv_year < 1886 || inv_year > new Date().getFullYear()) {
+          messages.push("Year must be a valid year.");
+      }
+      if (isNaN(inv_miles) || inv_miles < 0) {
+          messages.push("Miles must be a non-negative number.");
+      }
+
+      if (messages.length > 0) {
+          req.flash("error", messages.join("\n"));
+          return res.redirect("/inv/add-inventory");
+      }
 
       // Insert inventory item into the database
-      await invModel.addInventory(inv_make, inv_model, inv_year, classification_id, inv_description, inv_price, inv_miles, inv_color, inv_image, inv_thumbnail);
+      await invModel.addInventory(classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color);
 
       // Flash success message
-      req.flash("message", "New inventory item added successfully.");
+      req.flash("success", "New inventory item added successfully.");
 
       // Redirect to the management view
-      res.redirect("/inv");
+      return res.redirect("/inv");
   } catch (error) {
       req.flash("error", "Failed to add new inventory item.");
-      res.redirect("/inv/add-inventory");
+      return res.redirect("/inv/add-inventory");
   }
 };
+
+
+
 
 module.exports = invCont
 

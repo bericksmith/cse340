@@ -1,22 +1,22 @@
 <div class="container">
     <h1>Add New Vehicle</h1>
-        <div class="message-container">
-            <% if (messages.length> 0) { %>
-            <% messages.forEach(message=> { %>
+    <div class="message-container">
+        <% if (messages && messages.length > 0) { %>
+            <% messages.forEach(message => { %>
                 <div class="alert alert-<%= message.type %>">
-                    <%= message.text %>
+                    <%= message.text%><br>
                 </div>
             <% }) %>
-            <% } %>
-
-            <% if (errors.length> 0) { %>
-                <% errors.forEach(error=> { %>
-                    <div class="error">
-                        <%= error %>
-                    </div>
-                <% }) %>
         <% } %>
-        </div>
+        <% if (errors && errors.length > 0) { %>
+            <% errors.forEach(error => { %>
+                <div class="error">
+                    <%= error%><br>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+
 <div class="form-container">
     <form id="addVehicleForm" action="/inv/add-inventory" method="post">
         <p><b>All fields are required.</b></p>
