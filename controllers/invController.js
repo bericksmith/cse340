@@ -167,47 +167,72 @@ invCont.addInventoryView = async function (req, res, next) {
  * ************************** */
 invCont.addInventory = async function (req, res) {
   try {
-      const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body;
-      
-      // Server-side validation
-      const messages = [];
-      if (!classification_id || !inv_make || !inv_model || !inv_description || !inv_price || !inv_year || !inv_miles || !inv_color) {
-          messages.push("All fields are required.");
-      }
-      if (inv_make.includes(" ") || /[^a-zA-Z0-9]/.test(inv_make)) {
-          messages.push("Make cannot contain spaces or special characters.");
-      }
-      if (inv_model.includes(" ") || /[^a-zA-Z0-9]/.test(inv_model)) {
-          messages.push("Model cannot contain spaces or special characters.");
-      }
-      if (isNaN(inv_price) || inv_price <= 0) {
-          messages.push("Price must be a positive number.");
-      }
-      if (isNaN(inv_year) || inv_year < 1886 || inv_year > new Date().getFullYear()) {
-          messages.push("Year must be a valid year.");
-      }
-      if (isNaN(inv_miles) || inv_miles < 0) {
-          messages.push("Miles must be a non-negative number.");
-      }
+    const {
+      classification_id, inv_make, inv_model, inv_description,
+      inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color
+    } = req.body;
 
-      if (messages.length > 0) {
-          req.flash("error", messages.join("\n"));
-          return res.redirect("/inv/add-inventory");
-      }
+    // Server-side validation
+    const messages = [];
 
-      // Insert inventory item into the database
-      await invModel.addInventory(classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color);
+    if (!classification_id) {
+      messages.push("Classification is required.");
+    }
+    if (!inv_make) {
+      messages.push("Make is required.");
+    } else if (inv_make.includes(" ") || /[^a-zA-Z0-9]/.test(inv_make)) {
+      messages.push("Make cannot contain spaces or special characters.");
+    }
+    if (!inv_model) {
+      messages.push("Model is required.");
+    } else if (inv_model.includes(" ") || /[^a-zA-Z0-9]/.test(inv_model)) {
+      messages.push("Model cannot contain spaces or special characters.");
+    }
+    if (!inv_description) {
+      messages.push("Description is required.");
+    }
+    if (!inv_price) {
+      messages.push("Price is required.");
+    } else if (isNaN(inv_price) || inv_price <= 0) {
+      messages.push("Price must be a positive number.");
+    }
+    if (!inv_year) {
+      messages.push("Year is required.");
+    } else if (isNaN(inv_year) || inv_year < 1886 || inv_year > new Date().getFullYear()) {
+      messages.push("Year must be a valid year.");
+    }
+    if (!inv_miles) {
+      messages.push("Miles are required.");
+    } else if (isNaN(inv_miles) || inv_miles < 0) {
+      messages.push("Miles must be a non-negative number.");
+    }
+    if (!inv_color) {
+      messages.push("Color is required.");
+    }
 
-      // Flash success message
-      req.flash("success", "New inventory item added successfully.");
-
-      // Redirect to the management view
-      return res.redirect("/inv");
-  } catch (error) {
-      req.flash("error", "Failed to add new inventory item.");
+    if (messages.length > 0) {
+      req.flash("error", messages.join("\n"));
       return res.redirect("/inv/add-inventory");
+    }
+
+    // Insert inventory item into the database
+    await invModel.addInventory(
+      classification_id, inv_make, inv_model, inv_description,
+      inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color
+    );
+
+    // Flash success message
+    req.flash("success", "New inventory item added successfully.");
+
+    // Redirect to the management view
+    return res.redirect("/inv");
+  } catch (error) {
+    console.error('Error adding inventory:', error);  // Detailed error logging
+    req.flash("error", "Failed to add new inventory item.");
+    return res.redirect("/inv/add-inventory");
   }
 };
+
 
 
 
