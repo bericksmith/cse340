@@ -20,11 +20,12 @@ validate.classificationRules = () => {
  * ************************ */
 validate.checkclassData = async (req, res, next) => {
   const { classification_name } = req.body;
-  let errors = [];
-  errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    let nav = utilities.getNav();
-    res.render("inventory/addClassification", {
+  
+  let errors = validationResult(req).array();
+  
+  if (errors.length > 0) {
+    let nav = await utilities.getNav(); // Resolve the promise
+    res.render("inventory/add-classification", {
       errors,
       title: "Add Classification",
       nav,

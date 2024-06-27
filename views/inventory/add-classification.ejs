@@ -1,22 +1,24 @@
 <div class="container">
   <h1>Add New Classification</h1>
   <div class="message-container">
-    <% if (messages.length> 0) { %>
-    <% messages.forEach(message=> { %>
+    <% if (messages && Array.isArray(messages) && messages.length > 0) { %>
+      <% messages.forEach(message => { %>
         <div class="alert alert-<%= message.type %>">
-            <%= message.text %>
+          <ul>
+            <%- message.text %>
+          </ul>
         </div>
-    <% }) %>
+      <% }) %>
     <% } %>
-
-    <% if (errors.length> 0) { %>
-        <% errors.forEach(error=> { %>
-            <div class="error">
-                <%= error %>
-            </div>
-        <% }) %>
-<% } %>
-</div>
+    
+    <% if (errors && Array.isArray(errors) && errors.length > 0) { %>
+      <% errors.forEach(error => { %>
+        <div class="error">
+          <%= error.msg %>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
 
 
   <div class="form-container">
@@ -25,9 +27,13 @@
       action="/inv/add-classification"
       method="post"
     >
+    <p><b>Field is required.</b></p>
       <fieldset>
         <div class="form-group">
           <label for="classification-name">Classification Name:</label>
+          <p>
+            Cannot contain spaces or special characters.
+          </p>
           <input
             type="text"
             id="classification-name"
@@ -36,9 +42,6 @@
             pattern="^[a-zA-Z]+$"
             value="<%= locals.classification_name %>"
           />
-          <p>
-            Classification name cannot contain spaces or special characters.
-          </p>
         </div>
         <button type="submit" class="form-button">Add Classification</button>
       </fieldset>
