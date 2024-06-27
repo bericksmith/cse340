@@ -81,7 +81,7 @@ validate.addInventoryRules = () => {
     body("inv_price")
       .trim()
       .notEmpty()
-      .matches(/^\d+$/)
+      .matches(/^\d+(\.\d{1,2})?$/)
       .withMessage("Please provide price for the vehicle."),
 
     body("inv_year")

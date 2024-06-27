@@ -53,14 +53,16 @@
         <div class="form-group">
             <label for="inv_description">Description:</label>
             <textarea 
-                rows="4" 
-                cols="35" 
-                id="inv_description" 
-                name="inv_description" 
-                pattern="^[a-zA-Z0-9\s\p{P}]{1,500}$"
-                required
-                value="<%= locals.inv_description %>">
-        </textarea>
+        rows="4" 
+        cols="35" 
+        id="inv_description" 
+        name="inv_description" 
+        pattern="^[a-zA-Z0-9\s\p{P}]{1,500}$"
+        required
+        onfocus="this.classList.add('focused')"
+        oninput="this.classList.add('user-interacted')">
+        <%= locals.inv_description %>
+    </textarea>
         </div>
         <div class="form-group">
             <label for="inv_image">Image Path:</label>
@@ -127,3 +129,15 @@
     </fieldset>
 </div>
 </div>
+
+<script>
+  document.querySelectorAll('.form-group textarea').forEach(element => {
+      element.addEventListener('input', function() {
+          if (this.checkValidity()) {
+              this.classList.add('valid');
+          } else {
+              this.classList.remove('valid');
+          }
+      });
+  });
+</script>
