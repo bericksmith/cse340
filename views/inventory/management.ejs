@@ -1,13 +1,14 @@
 <div>
   <h1>Inventory Management</h1>
-
+  <div class="message-container">
   <% if (messages && messages.length> 0) { %>
   <% messages.forEach(message=> { %>
-    <div class="alert alert-<%= message.type %>">
+    <div class="<%= message.type %>">
       <%= message.text %>
     </div>
   <% }) %> 
   <% } %>
+  </div>
   <div>
     <ul class="no-bullets">
       <li><a href="/inv/add-classification">Add New Classification</a></li>

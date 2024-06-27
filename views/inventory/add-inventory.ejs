@@ -3,7 +3,7 @@
     <div class="message-container">
         <% if (messages && Array.isArray(messages) && messages.length > 0) { %>
           <% messages.forEach(message => { %>
-            <div class="alert alert-<%= message.type %>">
+            <div class="flash-<%= message.type %>">
               <ul>
                 <%- message.text %>
               </ul>

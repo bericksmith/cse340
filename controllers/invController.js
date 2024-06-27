@@ -179,7 +179,7 @@ invCont.addInventory = async function (req, res) {
     );
 
     // Flash success message
-    req.flash("success", "New inventory item added successfully.");
+    req.flash("message", "New inventory item added successfully.");
 
     // Redirect to the management view
     return res.redirect("/inv");
