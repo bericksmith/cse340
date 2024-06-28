@@ -9,7 +9,6 @@ validate.classificationRules = () => {
   return [
     body("classification_name")
       .trim()
-      .notEmpty()
       .matches(/^[a-zA-Z]+$/)
       .withMessage("Classification name does not meet requirements"),
   ];
@@ -48,51 +47,48 @@ validate.addInventoryRules = () => {
     body("inv_make")
       .trim()
       .escape()
-      .notEmpty()
-      .isLength({ min: 1 })
+      .matches(/^[a-zA-Z]{3,}$/)
       .withMessage("Please provide a vehicle make name."),
 
     body("inv_model")
       .trim()
       .escape()
-      .notEmpty()
-      .isLength({ min: 2 })
+      .matches(/^[a-zA-Z]{3,}$/)
       .withMessage("Please provide a vehicle model name."),
 
     body("inv_description")
       .trim()
       .escape()
-      .notEmpty()
-      .isLength({ min: 2 })
+      .matches(/^[a-zA-Z0-9\s.,!?'"()\-:;]{1,500}$/)
       .withMessage("Please provide a vehicle description."),
       
     body("inv_image")
       .trim()
+      .escape()
       .notEmpty()
-      .isLength({ min: 2 })
       .withMessage("Please provide a vehicle image path"),
 
     body("inv_thumbnail")
       .trim()
+      .escape()
       .notEmpty()
-      .isLength({ min: 2 })
       .withMessage("Please provide a vehicle image thumbnail path"),
 
     body("inv_price")
       .trim()
-      .notEmpty()
+      .escape()
       .matches(/^\d+(\.\d{1,2})?$/)
       .withMessage("Please provide price for the vehicle."),
 
     body("inv_year")
       .trim()
-      .notEmpty()
+      .escape()
       .matches(/^\d{4}$/)
       .withMessage("Please provide year for the vehicle."),
 
     body("inv_miles")
       .trim()
-      .notEmpty()
+      .escape()
       .matches(/^\d+$/)
       .withMessage("Please provide miles for the vehicle."),
 
@@ -100,7 +96,6 @@ validate.addInventoryRules = () => {
       .trim()
       .escape()
       .notEmpty()
-      .isLength({ min: 1 })
       .withMessage("Please provide a vehicle color"), 
 
   ];
