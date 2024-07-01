@@ -2,7 +2,7 @@
   <h1>Inventory Management</h1>
   <% if (messages && messages.length> 0) { %>
   <% messages.forEach(message=> { %>
-  <div class="message-container"></div>
+  <div class="message-container">
     <div class="<%= message.type %>">
       <%= message.text %>
     </div>  
