@@ -561,7 +561,7 @@ fieldset {
 
 @media (min-width: 1025px) {
   :root {
-    background-image: url("/images/site/checkerboard.jpg");
+    background-image: url("/images/site/checkerboard_sq.jpg");
     background-size: auto auto;
     background-repeat: repeat;
   }
