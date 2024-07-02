@@ -83,9 +83,11 @@
         <div class="form-group">
             <label for="inv_price">Price:</label>
             <input 
-                type="text" 
+                type="number" 
                 id="inv_price" 
-                name="inv_price" 
+                name="inv_price"
+                class="no-spinners" 
+                step="0.01"
                 placeholder="Decimal or integer" 
                 required 
                 pattern="^\d+(\.\d{1,2})?$"
