@@ -44,7 +44,7 @@ Util.buildClassificationGrid = async function(data){
       + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
       grid += '</h2>'
       grid += '<span>$' 
-      + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      + new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(vehicle.inv_price) + '</span>';
       grid += '</div>'
       grid += '</li>'
     })
@@ -63,7 +63,7 @@ Util.formatInventoryDetail = function(vehicle) {
  htmlContent += `<img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model} image on CSE Motors" class="center">`;
  htmlContent += `<div class='details'>`;
  htmlContent += `<h2 class="center">${vehicle.inv_make} ${vehicle.inv_model} Details</h2>`;
- htmlContent += `<p class="odd"><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>`;
+ htmlContent += `<p class="odd"><strong>Price:</strong> $${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(vehicle.inv_price)}</p>`;
  htmlContent += `<p class="even"><strong>Description:</strong> ${vehicle.inv_description}</p>`;
  htmlContent += `<p class="odd"><strong>Color:</strong> ${vehicle.inv_color}</p>`;
  htmlContent += `<p class="even"><strong>Miles:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</p>`;
