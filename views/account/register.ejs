@@ -1,12 +1,26 @@
-<% if (title) { %>
-<h1><%= title %></h1>
-<% } else { res.redirect('/') } %> <%- messages() %> <% if (errors) { %>
-<ul class="notice">
-  <% errors.array().forEach(error => { %>
-  <li><%= error.msg %></li>
-  <% }) %>
-</ul>
-<% } %>
+<div class="container">
+
+  <h1><%= title %></h1>
+
+<div class="message-container">
+        <% if (messages && Array.isArray(messages) && messages.length > 0) { %>
+          <% messages.forEach(message => { %>
+            <div class="flash-<%= message.type %>">
+              <ul>
+                <%- message.text %>
+              </ul>
+            </div>
+          <% }) %>
+        <% } %>
+        
+        <% if (errors && Array.isArray(errors) && errors.length > 0) { %>
+          <% errors.forEach(error => { %>
+            <div class="error">
+              <%= error.msg %>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
 
 <div class="form-container">
   <p><b>All Fields are required.</b></p>
@@ -29,7 +43,6 @@
           name="account_lastname"
           id="account_lastname"
           required
-          autocomplete="family-name"
           value="<%= locals.account_lastname %>"
         />
       </div>
@@ -40,7 +53,7 @@
           name="account_email"
           required
           placeholder="abc@myemail.com"
-          autocomplete="email"
+
           value="<%= locals.account_email %>"
         />
       </div>
@@ -71,6 +84,7 @@
       <input class="form-button" type="submit" value="Register" />
     </fieldset>
   </form>
+</div>
 </div>
 <script>
   const pswdBtn = document.querySelector("#togglePassword");
