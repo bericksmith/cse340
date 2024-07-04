@@ -6,11 +6,15 @@
     <% messages.forEach(message=> { %>
     <div class="message-container">
       <div class="<%= message.type %>">
-        <%= message.text %>
+        <%- message.text %>
       </div>  
     </div>
     <% }) %> 
     <% } %>
+
+    <ul class="no-bullets">
+      <li><a href="/account/">Edit Account Information</a></li>
+    </ul>
 
   </div>
   
