@@ -8,6 +8,8 @@ router.get('/login', utilities.handleErrors(accountController.buildLogin));
 
 router.get('/register', utilities.handleErrors(accountController.buildRegister));
 
+router.get("/", utilities.handleErrors(accountController.buildAccountManagement));
+
 // Process the registration data
 router.post(
     "/register",
@@ -16,12 +18,13 @@ router.post(
     utilities.handleErrors(accountController.registerAccount)
   )
 
-// Process the login attempt
+// Process the login request
 router.post(
   "/login",
-  (req, res) => {
-    res.status(200).send('login process')
-  }
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.accountLogin)
 )
+
 
 module.exports = router;

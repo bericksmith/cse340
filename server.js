@@ -12,13 +12,14 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
-const utilities = require("./utilities/index")
+const utilities = require("./utilities/")
 const errorRoute = require("./routes/errorRoute")
 const errorHandler = require("./routes/errorRoute")
 const session = require("express-session")
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
  * Middleware
@@ -43,6 +44,8 @@ app.use(function(req, res, next){
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * View Engine and Templates
@@ -51,6 +54,7 @@ app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 app.use(errorHandler);
+
 /* ***********************
  * Routes
  *************************/
@@ -67,6 +71,7 @@ app.use('/error', utilities.handleErrors(errorRoute))
 app.use(async (req, res, next) => {
   next({status: 404, message: '<h1>Oops...It broke!</h1><p>Sorry, we appear to have lost that page.(404)</p>'})
 })
+
 /* ***********************
 * Express Error Handler
 * Place after all other middleware

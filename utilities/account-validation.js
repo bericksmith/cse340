@@ -101,10 +101,11 @@ validate.loginRules = () => {
  * Check data and return errors or continue to registration
  * ***************************** */
 validate.checkLoginData = async (req, res, next) => {
-  const { account_email } = req.body
-  let errors = []
-  errors = validationResult(req)
-  if (!errors.isEmpty()) {
+  const { account_email } = req.body;
+
+  let errors = validationResult(req).array();
+
+  if (errors.length > 0) {
     let nav = await utilities.getNav()
     res.render("account/login", {
       errors,
