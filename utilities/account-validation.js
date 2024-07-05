@@ -3,10 +3,16 @@ const accountModel = require("../models/account-model")
 const { body, validationResult } = require("express-validator")
 const validate = {}
 
+validate.checkAuthentication = (req, res, next) => {
+  res.locals.loggedIn = req.session.loggedIn || false;
+  res.locals.accountData = req.session.accountData || {};
+  next();
+};
+
   /*  **********************************
   *  Registration Data Validation Rules
   * ********************************* */
-  validate.registationRules = () => {
+  validate.registrationRules = () => {
     return [
       // firstname is required and must be string
       body("account_firstname")
@@ -117,6 +123,5 @@ validate.checkLoginData = async (req, res, next) => {
   };
   next();
 };
-
 
   module.exports = validate

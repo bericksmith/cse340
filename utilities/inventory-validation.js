@@ -17,7 +17,7 @@ validate.classificationRules = () => {
 /* *************************
  * Check data and return errors or continue to add classification
  * ************************ */
-validate.checkclassData = async (req, res, next) => {
+validate.checkClassData = async (req, res, next) => {
   const { classification_name } = req.body;
   
   let errors = validationResult(req).array();
@@ -53,7 +53,7 @@ validate.addInventoryRules = () => {
     body("inv_model")
       .trim()
       .escape()
-      .matches(/^[a-zA-Z]{3,}$/)
+      .matches(/^[a-zA-Z\s]{3,}$/)
       .withMessage("Please provide a vehicle model name."),
 
     body("inv_description")

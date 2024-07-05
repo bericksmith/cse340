@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Add New Vehicle</h1>
+    <h1>Update Vehicle</h1>
     <div class="message-container">
         <% if (messages && Array.isArray(messages) && messages.length > 0) { %>
           <% messages.forEach(message => { %>
@@ -21,12 +21,12 @@
       </div>
 
 <div class="form-container">
-    <form id="addVehicleForm" action="/inv/add-inventory" method="post">
+    <form id="updateVehicleForm" action="/inv/update" method="post">
         <p><b>All fields are required.</b></p>
         <fieldset>
         <div class="form-group">
             <label for="classificationList">Classification:</label>
-            <%- classificationList %>
+            <%- classificationSelect %>
         </div>
         <div class="form-group">
             <label for="inv_make">Make:</label>
@@ -125,7 +125,7 @@
                 required 
                 value="<%= locals.inv_color %>">
         </div>
-        <button type="submit" class="form-button">Add Vehicle</button>
+        <button type="submit" class="form-button">Update Vehicle</button>
     </fieldset>
     </form>
 </div>

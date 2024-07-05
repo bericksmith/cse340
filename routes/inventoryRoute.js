@@ -11,10 +11,14 @@ router.get("/", utilities.handleErrors(invController.managementView));
 router.get("/add-classification", invController.addClassificationView);
 router.get("/add-inventory", invController.addInventoryView);
 
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
+
+router.get('/edit/:inv_id', utilities.handleErrors(invController.editInventoryView));
+
 router.post(
     "/add-classification",
     classValidate.classificationRules(),
-    classValidate.checkclassData,
+    classValidate.checkClassData,
     utilities.handleErrors(invController.addClassification)
 );
 
