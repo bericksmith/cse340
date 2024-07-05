@@ -8,7 +8,14 @@ router.get('/login', utilities.handleErrors(accountController.buildLogin));
 
 router.get('/register', utilities.handleErrors(accountController.buildRegister));
 
+router.get('/logout', utilities.handleErrors(accountController.logoutAccount));
+
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement))
+
+router.get('/logout-success', utilities.handleErrors(async (req, res) => {
+  const nav = await utilities.getNav();
+  res.render('account/logout', { title: 'Logged Out Successfully', nav });
+}));
 
 // Process the registration data
 router.post(

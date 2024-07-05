@@ -367,11 +367,33 @@ ul.no-bullets {
 }
 
 
+.manager {
+  margin: 10px;
+}
 
+#classificationList {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
 
+table {
+  border:#c5c5c5 1px solid;
+  border-radius: 3px;
+  margin-top: 15px;
+  border-collapse: collapse;
+}
 
+thead {
+  background-color: #c5c5c5;
+}
 
-
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #c5c5c5;
+}
 
 
 
@@ -458,6 +480,7 @@ ul.no-bullets {
   text-transform: uppercase;
   font-weight: bold;
 }
+
 
 #togglePassword {
   padding: 5px;

@@ -103,7 +103,6 @@ Util.buildClassificationList = async function (classification_id = null) {
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
-
 /* ****************************************
 * Middleware to check token validity
 **************************************** */
@@ -114,39 +113,35 @@ Util.checkJWTToken = (req, res, next) => {
     process.env.ACCESS_TOKEN_SECRET,
     function (err, accountData) {
      if (err) {
-      req.flash("Please log in")
+      req.flash("notice", "Please log in")
       res.clearCookie("jwt")
       return res.redirect("/account/login")
      }
      res.locals.accountData = accountData
-     res.locals.loggedin = 1
+     res.locals.loggedIn = true
      next()
     })
   } else {
    next()
   }
- }
-
+}
 
 /* ****************************************
  *  Check Login
  * ************************************ */
 Util.checkLogin = (req, res, next) => {
-  if (res.locals.loggedin) {
+  if (res.locals.loggedIn) {
     next()
   } else {
     req.flash("notice", "Please log in.")
     return res.redirect("/account/login")
   }
- }
+}
 
- Util.checkAuthentication = (req, res, next) => {
+Util.checkAuthentication = (req, res, next) => {
   res.locals.loggedIn = req.session.loggedIn || false;
   res.locals.accountData = req.session.accountData || {};
   next();
 }
- 
-
- 
 
 module.exports = Util

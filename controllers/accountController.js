@@ -4,7 +4,6 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
-
 /* ****************************************
 *  Deliver login view
 * *************************************** */
@@ -15,9 +14,9 @@ async function buildLogin(req, res, next) {
       nav,
       errors: null,
     })
-  }
+}
 
-  /* ****************************************
+/* ****************************************
 *  Deliver registration view
 * *************************************** */
 async function buildRegister(req, res, next) {
@@ -27,7 +26,7 @@ async function buildRegister(req, res, next) {
       nav,
       errors: null,
     })
-  };
+}
 
 /* ****************************************
 *  Deliver account management view
@@ -104,6 +103,9 @@ async function registerAccount(req, res) {
   }
 }
 
+/* ****************************************
+*  Process Login
+* *************************************** */
 async function accountLogin(req, res) {
   let nav = await utilities.getNav()
   const { account_email, account_password } = req.body
@@ -124,10 +126,16 @@ async function accountLogin(req, res) {
     if (passwordMatch) {
       const { account_firstname } = accountData
       delete accountData.account_password
-      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
+      const payload = {
+        id: accountData.account_id,
+        firstName: accountData.account_firstname,
+        lastName: accountData.account_lastname,
+        email: accountData.account_email,
+      }
+      const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
       res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
       req.session.loggedIn = true
-      req.session.accountData = accountData
+      req.session.accountData = payload
       req.flash("message", `Welcome back, ${account_firstname}!<p>You are logged in.</p>`)
       return res.redirect("/account/")
     } else {
@@ -151,6 +159,22 @@ async function accountLogin(req, res) {
   }
 }
 
- 
-  
-  module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement }
+/* ****************************************
+*  Process Logout
+* *************************************** */
+async function logoutAccount(req, res, next) {
+  try {
+    res.clearCookie("jwt");
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err);
+        return next(err);
+      }
+      res.redirect("/account/logout-success");
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, logoutAccount }
