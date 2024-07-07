@@ -1,9 +1,9 @@
-const utilities = require(".")
-const accountModel = require("../models/account-model")
-const { body, validationResult } = require("express-validator")
-const jwt = require('jsonwebtoken');
-const { getAccountById } = require('../models/account-model');
-const validate = {}
+const utilities = require(".");
+const accountModel = require("../models/account-model");
+const { body, validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
+const { getAccountById } = require("../models/account-model");
+const validate = {};
 
 validate.checkAuthentication = (req, res, next) => {
   res.locals.loggedIn = req.session.loggedIn || false;
@@ -11,82 +11,79 @@ validate.checkAuthentication = (req, res, next) => {
   next();
 };
 
-  /*  **********************************
-  *  Registration Data Validation Rules
-  * ********************************* */
-  validate.registrationRules = () => {
-    return [
-      // firstname is required and must be string
-      body("account_firstname")
-        .trim()
-        .isLength({ min: 1 })
-        .withMessage("Please provide a first name."), // on error this message is sent.
-  
-      // lastname is required and must be string
-      body("account_lastname")
-        .trim()
-        .isLength({ min: 2 })
-        .withMessage("Please provide a last name."), // on error this message is sent.
-  
-      // valid email is required and cannot already exist in the DB
-      body("account_email")
+/*  **********************************
+ *  Registration Data Validation Rules
+ * ********************************* */
+validate.registrationRules = () => {
+  return [
+    // firstname is required and must be string
+    body("account_firstname")
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage("Please provide a first name."), // on error this message is sent.
+
+    // lastname is required and must be string
+    body("account_lastname")
+      .trim()
+      .isLength({ min: 2 })
+      .withMessage("Please provide a last name."), // on error this message is sent.
+
+    // valid email is required and cannot already exist in the DB
+    body("account_email")
       .trim()
       .isEmail()
       .normalizeEmail() // refer to validator.js docs
       .withMessage("A valid email is required.")
       .custom(async (account_email) => {
-        const emailExists = await accountModel.checkExistingEmail(account_email)
+        const emailExists = await accountModel.checkExistingEmail(
+          account_email
+        );
         if (emailExists) {
-          throw new Error("Email exists. Please login or use different email")
+          throw new Error("Email exists. Please login or use different email");
         }
       }),
-  
-      // password is required and must be strong password
-      body("account_password")
-        .trim()
-        .isStrongPassword({
-          minLength: 12,
-          minLowercase: 1,
-          minUppercase: 1,
-          minNumbers: 1,
-          minSymbols: 1,
-        })
-        .withMessage("Password does not meet requirements."),
-    ]
-  }
 
-  /* ******************************
+    // password is required and must be strong password
+    body("account_password")
+      .trim()
+      .isStrongPassword({
+        minLength: 12,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+      .withMessage("Password does not meet requirements."),
+  ];
+};
+
+/* ******************************
  * Check data and return errors or continue to registration
  * ***************************** */
 validate.checkRegData = async (req, res, next) => {
-    const { 
-      account_firstname, 
-      account_lastname, 
-      account_email 
-    } = req.body;
-    
-    let errors = validationResult(req).array();
+  const { account_firstname, account_lastname, account_email } = req.body;
 
-    if (errors.length > 0) {
-      let nav = await utilities.getNav()
+  let errors = validationResult(req).array();
 
-      res.render("account/register", {
-        errors,
-        title: "Registration",
-        nav,
-        account_firstname,
-        account_lastname,
-        account_email,
-      });
-      return;
-    }
-    next();
-  };
+  if (errors.length > 0) {
+    let nav = await utilities.getNav();
 
+    res.render("account/register", {
+      errors,
+      title: "Registration",
+      nav,
+      account_firstname,
+      account_lastname,
+      account_email,
+    });
+    return;
+  }
+  next();
+};
 
 /*  **********************************
-*  Login Data Validation Rules
-* ********************************* */
+ *  Login Data Validation Rules
+ * ********************************* */
 validate.loginRules = () => {
   return [
     // Valid email is required
@@ -103,7 +100,6 @@ validate.loginRules = () => {
       .withMessage("Password is required"),
   ];
 };
-  
 
 /* ******************************
  * Check data and return errors or continue to registration
@@ -114,7 +110,7 @@ validate.checkLoginData = async (req, res, next) => {
   let errors = validationResult(req).array();
 
   if (errors.length > 0) {
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav();
     res.render("account/login", {
       errors,
       title: "Login",
@@ -122,44 +118,44 @@ validate.checkLoginData = async (req, res, next) => {
       account_email,
     });
     return;
-  };
+  }
   next();
 };
-
-
 
 /* ******************************
  * Validate Type off account
  * ***************************** */
 validate.requireAdminOrEmployee = async (req, res, next) => {
   try {
-      const token = req.cookies.jwt;
+    const token = req.cookies.jwt;
 
-      // Verify JWT token
-      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    // Verify JWT token
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
-      // Get user ID from decoded token
-      const account_id = decoded.account_id;
+    // Get user ID from decoded token
+    const account_id = decoded.account_id;
 
-      // Fetch user from database using user ID
-      const user = await getAccountById(account_id);
+    // Fetch user from database using user ID
+    const user = await getAccountById(account_id);
 
+    // Check if user exists and has admin or employee role
+    if (
+      !user ||
+      (user.account_type !== "Admin" && user.account_type !== "Employee")
+    ) {
+      console.log("Unauthorized");
+      return res.status(403).json({ message: "Unauthorized" });
+    }
 
-      // Check if user exists and has admin or employee role
-      if (!user || (user.account_type !== 'Admin' && user.account_type !== 'Employee')) {
-          console.log('Unauthorized');
-          return res.status(403).json({ message: 'Unauthorized' });
-      }
+    // Attach user object to request for future use
+    req.user = user;
 
-      // Attach user object to request for future use
-      req.user = user;
-
-      // Proceed to next middleware or route handler
-      next();
+    // Proceed to next middleware or route handler
+    next();
   } catch (error) {
-      console.error('Authorization Error:', error);
-      return res.status(401).json({ message: 'Unauthorized' });
+    console.error("Authorization Error:", error);
+    return res.status(401).json({ message: "Unauthorized" });
   }
 };
 
-  module.exports = validate
+module.exports = validate;

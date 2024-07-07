@@ -1,28 +1,24 @@
 <div>
   <h1>Account Management</h1>
 
-  <% if (messages && messages.length > 0) { %>
-      <% messages.forEach(message => { %>
-          <div class="message-container">
-              <div class="<%= message.type %>">
-                  <%- message.text %>
-              </div>  
-          </div>
-      <% }) %> 
-  <% } %>
+  <% if (messages && messages.length > 0) { %> <% messages.forEach(message => {
+  %>
+  <div class="message-container">
+    <div class="<%= message.type %>"><%- message.text %></div>
+  </div>
+  <% }) %> <% } %>
   <div class="manager">
-  <h2>Welcome <%= account_firstname %></h2>
+    <h2>Welcome <%= account_firstname %></h2>
 
-  <p>You're logged in.</p>
+    <p>You're logged in.</p>
 
-  <p><a href="/account/update/<%= account_id %>">Edit Account Information</a></p>
-  
+    <p>
+      <a href="/account/update/<%= account_id %>">Edit Account Information</a>
+    </p>
 
-  <% if (account_type === 'Employee' || account_type === 'Admin') { %>
-      <h2>Inventory Management</h2>
-      <p><a href="/inv">Manage Inventory</a></p>
-  <% } %>
+    <% if (account_type === 'Employee' || account_type === 'Admin') { %>
+    <h2>Inventory Management</h2>
+    <p><a href="/inv">Manage Inventory</a></p>
+    <% } %>
+  </div>
 </div>
-</div>
-
-  

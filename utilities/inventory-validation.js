@@ -19,9 +19,9 @@ validate.classificationRules = () => {
  * ************************ */
 validate.checkClassData = async (req, res, next) => {
   const { classification_name } = req.body;
-  
+
   let errors = validationResult(req).array();
-  
+
   if (errors.length > 0) {
     let nav = await utilities.getNav(); // Resolve the promise
     res.render("inventory/add-classification", {
@@ -61,7 +61,7 @@ validate.addInventoryRules = () => {
       .escape()
       .matches(/^[a-zA-Z0-9\s.,!?'"()\-:;]{1,500}$/)
       .withMessage("Please provide a vehicle description."),
-      
+
     body("inv_image")
       .trim()
       .escape()
@@ -96,8 +96,7 @@ validate.addInventoryRules = () => {
       .trim()
       .escape()
       .notEmpty()
-      .withMessage("Please provide a vehicle color"), 
-
+      .withMessage("Please provide a vehicle color"),
   ];
 };
 
@@ -122,7 +121,9 @@ validate.checkInvData = async (req, res, next) => {
 
   if (errors.length > 0) {
     let nav = await utilities.getNav(); // Resolve the promise
-    let classificationList = await utilities.buildClassificationList(classification_id); // Resolve the promise
+    let classificationList = await utilities.buildClassificationList(
+      classification_id
+    ); // Resolve the promise
 
     res.render("inventory/add-inventory", {
       errors,

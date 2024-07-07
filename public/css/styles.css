@@ -22,13 +22,17 @@ html {
 
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: .75rem;
+  font-size: 0.75rem;
   margin: 15px auto;
   padding: 10px;
   background-color: var(--background-color);
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: "Patua One", serif;
   font-weight: 400;
   font-style: normal;
@@ -40,7 +44,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.40rem;
+  font-size: 1.4rem;
   margin: 5px 0px;
 }
 
@@ -65,7 +69,8 @@ li {
   background-color: var(--background-color);
 }
 
-.siteName a, #tools a {
+.siteName a,
+#tools a {
   text-decoration: none;
   color: black;
 }
@@ -80,10 +85,10 @@ li {
   color: black;
 }
 
-#tools { 
-  font-family: "Spectral SC", serif; 
-  font-weight: 700; 
-  font-style: normal; 
+#tools {
+  font-family: "Spectral SC", serif;
+  font-weight: 700;
+  font-style: normal;
   font-size: 1.15rem;
   text-decoration: none;
   color: black;
@@ -143,9 +148,9 @@ nav a:hover {
   white-space: nowrap;
   padding: 5px;
   max-width: 40%;
-  top: .5rem;
+  top: 0.5rem;
   left: 1rem;
-  background-color: rgba(255, 255, 255, 0.70);
+  background-color: rgba(255, 255, 255, 0.7);
   color: var(--primary-color);
   font-weight: bolder;
 }
@@ -155,7 +160,7 @@ nav a:hover {
 }
 
 .hero-cta p {
-  font-size: .75rem;
+  font-size: 0.75rem;
   margin: 0;
 }
 
@@ -267,7 +272,7 @@ nav a:hover {
 
 .namePrice span {
   display: block;
-  font-size: .90rem;
+  font-size: 0.9rem;
   font-weight: bold;
 }
 
@@ -302,14 +307,15 @@ nav a:hover {
   border-radius: 5px;
 }
 
-.even, .odd{
+.even,
+.odd {
   margin: 2px 0px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 10px;
   margin: 0px;
 }
 
-.even{
+.even {
   background-color: #bcdaf3;
 }
 
@@ -318,7 +324,7 @@ footer {
 }
 
 .copyright {
-  font-size: .75rem;
+  font-size: 0.75rem;
   margin: 0;
 }
 
@@ -332,24 +338,24 @@ footer {
 .error-btn {
   background-color: rgb(172, 0, 0);
   color: rgb(255, 255, 255);
-  text-decoration: none; 
-  border: 2px solid  rgb(172, 0, 0);
+  text-decoration: none;
+  border: 2px solid rgb(172, 0, 0);
   border-radius: 9px;
   padding: 2px 15px;
-  font-size: .75rem;
+  font-size: 0.75rem;
 }
 
-.error-btn:hover{
+.error-btn:hover {
   background-color: white;
   color: black;
   border: 2px solid red;
 }
 
-.notice{
+.notice {
   color: rgb(0, 0, 0);
 }
 
-.error{
+.error {
   color: rgb(255, 0, 0);
   font-weight: bold;
 }
@@ -365,7 +371,6 @@ ul.no-bullets {
   padding-top: 10px;
   padding-bottom: 30px;
 }
-
 
 .manager {
   margin: 10px;
@@ -384,7 +389,7 @@ ul.no-bullets {
 }
 
 table {
-  border:#c5c5c5 1px solid;
+  border: #c5c5c5 1px solid;
   border-radius: 3px;
   margin-top: 15px;
   border-collapse: collapse;
@@ -394,21 +399,12 @@ thead {
   background-color: #c5c5c5;
 }
 
-th, td {
+th,
+td {
   padding: 15px;
   text-align: left;
   border-bottom: 1px solid #c5c5c5;
 }
-
-
-
-
-
-
-
-
-
-
 
 /* login/registration page */
 
@@ -419,10 +415,10 @@ th, td {
   background-color: var(--primary-color);
   border-radius: 8px;
   text-align: center;
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
 
-.form-container p{
+.form-container p {
   margin: 8px auto;
 }
 
@@ -431,7 +427,7 @@ th, td {
   margin: 5px 0px;
 }
 
-.form-container label{
+.form-container label {
   font-weight: bold;
 }
 
@@ -443,7 +439,7 @@ th, td {
 .form-group label {
   display: block;
   margin-bottom: 5px;
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
 
 .form-group select {
@@ -462,15 +458,17 @@ th, td {
   box-sizing: border-box;
 }
 
-.form-group input:focus:invalid, textarea:focus:invalid {
+.form-group input:focus:invalid,
+textarea:focus:invalid {
   background-color: rgb(255, 188, 188);
   background-image: url("/images/site/invalid.png");
   background-size: 16px 16px;
   background-position: right top;
-  background-repeat: no-repeat;  
+  background-repeat: no-repeat;
 }
 
-.form-group input:required:valid, textarea:required.valid {
+.form-group input:required:valid,
+textarea:required.valid {
   background-color: rgb(255, 255, 255);
   background-image: url("/images/site/valid.png");
   background-size: 16px 16px;
@@ -491,7 +489,6 @@ th, td {
   font-weight: bold;
 }
 
-
 #togglePassword {
   padding: 5px;
   margin-top: 5px;
@@ -499,10 +496,9 @@ th, td {
   color: rgb(0, 0, 0);
   border-radius: 5px;
   cursor: pointer;
-  font-size: .75rem;
-  text-transform: uppercase; 
+  font-size: 0.75rem;
+  text-transform: uppercase;
 }
-
 
 fieldset {
   border: #fff 1px solid;
@@ -518,36 +514,18 @@ fieldset {
   font-weight: bold;
 }
 
-
-
 .no-spinners {
   -moz-appearance: textfield;
 }
 .no-spinners::-webkit-outer-spin-button,
 .no-spinners::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  margin:0;
+  margin: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @media (min-width: 768px) and (max-width: 1024px) {
   h1 {
-    font-size: 2.00rem;
+    font-size: 2rem;
   }
 
   h2 {
@@ -560,11 +538,11 @@ fieldset {
   }
 
   .hero-cta {
-    left: 2.50rem;
+    left: 2.5rem;
   }
 
   .hero-cta h2 {
-    font-size: 2.20rem;
+    font-size: 2.2rem;
   }
 
   .hero-cta p {
@@ -584,14 +562,14 @@ fieldset {
 
   .vehicle-detail img {
     width: auto;
-    max-width: 250px; 
+    max-width: 250px;
     margin-bottom: 0;
     margin-right: 20px;
   }
 
   .vehicle-detail .details {
-    flex: 1; 
-    max-width: 600px; 
+    flex: 1;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
   }
@@ -619,11 +597,11 @@ fieldset {
   }
 
   h2 {
-    font-size: 2.40rem;
+    font-size: 2.4rem;
   }
 
   .hero-cta {
-    left: 4.0rem;
+    left: 4rem;
   }
 
   .hero-cta h2 {
@@ -631,7 +609,7 @@ fieldset {
   }
 
   .hero-cta p {
-    font-size: 1.50rem;
+    font-size: 1.5rem;
     margin: 0;
   }
 
@@ -651,19 +629,18 @@ fieldset {
   }
 
   .vehicle-detail img {
-    max-width: 400px; 
+    max-width: 400px;
     margin-bottom: 0;
     margin-right: 20px;
   }
 
   .vehicle-detail .details {
-    flex: 1; 
-    max-width: 100%; 
+    flex: 1;
+    max-width: 100%;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
   }
   .form-container {
     max-width: 450px;
   }
 }
-
