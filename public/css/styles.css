@@ -371,6 +371,11 @@ ul.no-bullets {
   margin: 10px;
 }
 
+.manager h2 {
+  font-size: 1.35rem;
+  margin: 5px 0px;
+}
+
 #classificationList {
   padding: 5px;
   border: 1px solid #ccc;
@@ -419,6 +424,11 @@ th, td {
 
 .form-container p{
   margin: 8px auto;
+}
+
+.form-container h2 {
+  font-size: 1.35rem;
+  margin: 5px 0px;
 }
 
 .form-container label{

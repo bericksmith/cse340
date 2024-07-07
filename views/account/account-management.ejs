@@ -10,8 +10,8 @@
           </div>
       <% }) %> 
   <% } %>
-
-  <h3>Welcome <%= account_firstname %></h3>
+  <div class="manager">
+  <h2>Welcome <%= account_firstname %></h2>
 
   <p>You're logged in.</p>
 
@@ -19,10 +19,10 @@
   
 
   <% if (account_type === 'Employee' || account_type === 'Admin') { %>
-      <h3>Inventory Management</h3>
+      <h2>Inventory Management</h2>
       <p><a href="/inv">Manage Inventory</a></p>
   <% } %>
-  
+</div>
 </div>
 
   

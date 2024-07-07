@@ -240,12 +240,10 @@ async function updateAccountInformation(req, res) {
 *  Change password
 * *************************************** */
 async function changePassword(req, res) {
-  try {
-      
+  try { 
       let nav = await utilities.getNav();
       const errors = validationResult(req);
       const account_id = req.params.account_id;
-      
       const account = await accountModel.getAccountById(account_id);
       if (!errors.isEmpty()) {
           const flashMessage = req.flash("message");
@@ -256,22 +254,14 @@ async function changePassword(req, res) {
           return res.render('account/update', { 
               title: 'Update Account Information', 
               nav,
-              messages: messages,
-              account: account, 
+              messages,
+              account, 
               errors: errors.array() 
           });
       }
       
       const { currentPassword, newPassword } = req.body;
 
-      const passwordMatch = await bcrypt.compare(currentPassword, account.account_password);
-      console.log("Password Match:", passwordMatch); // Log to check the value of passwordMatch
-      
-      if (!passwordMatch) {
-          req.flash('error', 'Incorrect current password');
-          return res.redirect('/account/update');
-      }
-      
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       await accountModel.updatePassword(account_id, hashedPassword);
       
