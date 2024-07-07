@@ -6,7 +6,7 @@ const utilities = require("../utilities/index")
 
 router.get("/type/:classificationId", invController.buildByClassificationId)
 router.get("/detail/:invId", utilities.handleErrors(invController.showInventoryDetail))
-router.get("/", utilities.checkLogin, utilities.handleErrors(invController.managementView))
+router.get("/", utilities.checkLogin, utilities.requireAdminOrEmployee, utilities.handleErrors(invController.managementView))
 router.get("/add-classification", utilities.checkLogin, utilities.requireAdminOrEmployee, invController.addClassificationView)
 router.get("/add-inventory", utilities.checkLogin, utilities.requireAdminOrEmployee, invController.addInventoryView)
 

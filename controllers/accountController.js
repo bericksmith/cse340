@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const utilities = require("../utilities/")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
@@ -163,6 +164,126 @@ async function accountLogin(req, res) {
 }
 
 /* ****************************************
+*  update account view
+* *************************************** */
+
+async function getAccountUpdateView(req, res) {
+  try {
+      let nav = await utilities.getNav();
+      const account_id = req.params.account_id;
+      const account = await accountModel.getAccountById(account_id);
+      const flashMessage = req.flash("message");
+      let messages = [];
+      if (flashMessage.length > 0) {
+          messages.push({ type: "success", text: flashMessage[0] })
+      };;
+
+      if (!account) {
+          return res.status(404).send('Account not found');
+      }
+      res.render('account/update', { 
+          title: 'Edit Account', 
+          nav,
+          account,
+          messages: messages,
+          errors: null
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+  }
+};
+
+
+/* ****************************************
+*  update account information
+* *************************************** */
+async function updateAccountInformation(req, res) {
+  try {
+      let nav = await utilities.getNav();
+      const errors = validationResult(req);
+      const account_id = req.params.account_id;
+      if (!errors.isEmpty()) {
+          const account = await accountModel.getAccountById(account_id);
+          const flashMessage = req.flash("message");
+      let messages = [];
+      if (flashMessage.length > 0) {
+          messages.push({ type: "success", text: flashMessage[0] })
+      };
+          return res.render('account/update', { 
+              title: 'Update Account Information', 
+              nav,
+              messages,
+              account, 
+              errors: errors.array() 
+          });
+      }
+      
+      const { account_firstname, account_lastname, account_email } = req.body;
+      const updatedAccount = await accountModel.updateAccountInformation(account_id, account_firstname, account_lastname, account_email);
+      
+      // Update session data
+      req.session.accountData.firstName = updatedAccount.account_firstname;
+      req.session.accountData.lastName = updatedAccount.account_lastname;
+      req.session.accountData.email = updatedAccount.account_email;
+
+      req.flash('message', 'Congratulations, your account information has been updated.');
+      res.redirect('/account'); // Redirect to management view
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+  }
+};
+
+
+/* ****************************************
+*  Change password
+* *************************************** */
+async function changePassword(req, res) {
+  try {
+      
+      let nav = await utilities.getNav();
+      const errors = validationResult(req);
+      const account_id = req.params.account_id;
+      
+      const account = await accountModel.getAccountById(account_id);
+      if (!errors.isEmpty()) {
+          const flashMessage = req.flash("message");
+          let messages = [];
+          if (flashMessage.length > 0) {
+              messages.push({ type: "success", text: flashMessage[0] });
+          }
+          return res.render('account/update', { 
+              title: 'Update Account Information', 
+              nav,
+              messages: messages,
+              account: account, 
+              errors: errors.array() 
+          });
+      }
+      
+      const { currentPassword, newPassword } = req.body;
+
+      const passwordMatch = await bcrypt.compare(currentPassword, account.account_password);
+      console.log("Password Match:", passwordMatch); // Log to check the value of passwordMatch
+      
+      if (!passwordMatch) {
+          req.flash('error', 'Incorrect current password');
+          return res.redirect('/account/update');
+      }
+      
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      await accountModel.updatePassword(account_id, hashedPassword);
+      
+      req.flash('message', 'Password changed successfully');
+      res.redirect('/account'); // Redirect to management view
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+  }
+};
+
+/* ****************************************
 *  Process Logout
 * *************************************** */
 async function logoutAccount(req, res, next) {
@@ -180,4 +301,4 @@ async function logoutAccount(req, res, next) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, logoutAccount }
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, getAccountUpdateView, updateAccountInformation, changePassword, logoutAccount }
