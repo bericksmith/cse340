@@ -138,10 +138,18 @@ Util.checkLogin = (req, res, next) => {
   }
 }
 
-Util.checkAuthentication = (req, res, next) => {
-  res.locals.loggedIn = req.session.loggedIn || false;
-  res.locals.accountData = req.session.accountData || {};
-  next();
-}
+/* ****************************************
+ * Middleware to check if user is Admin or Employee
+ * Only allows access if the user is either an Admin or Employee
+ **************************************** */
+Util.requireAdminOrEmployee = (req, res, next) => {
+  const accountData = req.session.accountData;
+  if (accountData && (accountData.accountType === 'Admin' || accountData.accountType === 'Employee')) {
+    next();
+  } else {
+    req.flash('notice', 'You do not have permission to access this page.');
+    return res.redirect('/account/login');
+  }
+};
 
 module.exports = Util

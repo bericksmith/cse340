@@ -40,12 +40,15 @@ async function buildAccountManagement(req, res, next) {
       if (flashMessage.length > 0) {
           messages.push({ type: "success", text: flashMessage[0] });
       }
-      res.render("account/account-management", {
-          title: "Account Management",
-          messages: messages,
-          nav,
-          errors: null,
-      });
+        res.render("account/account-management", {
+            title: "Account Management",
+            account_type: accountData.accountType,
+            account_firstname: accountData.firstName,
+            account_id: accountData.id,
+            messages: messages,
+            nav,
+            errors: null,
+        });
   } catch (error) {
       next(error);
   }
@@ -128,6 +131,7 @@ async function accountLogin(req, res) {
       delete accountData.account_password
       const payload = {
         id: accountData.account_id,
+        accountType: accountData.account_type,
         firstName: accountData.account_firstname,
         lastName: accountData.account_lastname,
         email: accountData.account_email,
@@ -136,7 +140,6 @@ async function accountLogin(req, res) {
       res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
       req.session.loggedIn = true
       req.session.accountData = payload
-      req.flash("message", `Welcome back, ${account_firstname}!<p>You are logged in.</p>`)
       return res.redirect("/account/")
     } else {
       req.flash("notice", "Please check your credentials and try again.")

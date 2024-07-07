@@ -40,4 +40,15 @@ async function getAccountByEmail (account_email) {
   }
 }
 
-  module.exports = { registerAccount, checkExistingEmail, getAccountByEmail }
+
+async function getAccountById(account_id) {
+  try {
+    const result = await pool.query('SELECT * FROM account WHERE account_id = $1', [account_id]);
+        return result.rows[0];
+      } catch (error) {
+        console.error(error);
+        throw new Error('Database query failed');
+  }
+};
+
+  module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById }
