@@ -5,14 +5,18 @@ const router = new express.Router();
 const accountController = require("../controllers/accountController");
 const utilities = require("../utilities/index");
 
-router.get("/login", utilities.handleErrors(accountController.buildLogin));
+router.get(
+  "/login", 
+  utilities.handleErrors(accountController.buildLogin));
 
 router.get(
   "/register",
   utilities.handleErrors(accountController.buildRegister)
 );
 
-router.get("/logout", utilities.handleErrors(accountController.logoutAccount));
+router.get(
+  "/logout", 
+  utilities.handleErrors(accountController.logoutAccount));
 
 router.get(
   "/",
@@ -29,7 +33,9 @@ router.get(
 );
 
 // Deliver the account update view
-router.get("/update/:account_id", accountController.getAccountUpdateView);
+router.get(
+  "/update/:account_id", 
+  accountController.getAccountUpdateView);
 
 // Process account update
 router.post(
