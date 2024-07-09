@@ -9,7 +9,12 @@ module.exports = {
   },
   
   getReviewsByInventoryId: async (inv_id) => {
-    const sql = `SELECT * FROM reviews WHERE inv_id = $1`;
+    const sql = `
+      SELECT r.*, a.account_firstname, a.account_lastname
+      FROM reviews r
+      JOIN account a ON r.account_id = a.account_id
+      WHERE r.inv_id = $1
+    `;
     const data = await pool.query(sql, [inv_id]);
     return data.rows;
   }

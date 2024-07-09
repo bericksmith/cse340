@@ -263,6 +263,13 @@ invCont.editInventoryView = async function (req, res, next) {
   });
 };
 
+// Function to format date
+function formatDate(date) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(date).toLocaleDateString('en-US', options);
+}
+
+// function to show inventory item detail
 invCont.showInventoryDetail = async function (req, res, next) {
   try {
     const invId = req.params.invId;
@@ -275,13 +282,19 @@ invCont.showInventoryDetail = async function (req, res, next) {
 
     // Fetch reviews for the inventory item
     const reviews = await reviewModel.getReviewsByInventoryId(invId);
+    // Format the review dates and include the user's name
+    const formattedReviews = reviews.map(review => ({
+      ...review,
+      review_date: formatDate(review.review_date),
+      reviewer_name: `${review.account_firstname} ${review.account_lastname}`
+    }));
 
     res.render("./inventory/detail", {
       title: `${vehicle.inv_make} ${vehicle.inv_model}`,
       nav,
       htmlContent,
       vehicle, // Pass the vehicle object to the view
-      reviews, // Pass reviews to the view
+      reviews: formattedReviews, // Pass formatted reviews to the view
       account_id: req.session.accountData ? req.session.accountData.id : null // Pass account ID to the view if logged in
     });
   } catch (error) {

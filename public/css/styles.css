@@ -536,7 +536,8 @@ fieldset {
   margin: 0 auto;
   padding: 10px;
   background-color:#bcdaf3;
-  border-radius: 8px;
+  border:solid 2px rgb(136, 136, 136);
+  border-radius: 5px;
   font-size: 0.85rem;
 }
 .review-container h2{

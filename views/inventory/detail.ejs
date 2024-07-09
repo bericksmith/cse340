@@ -8,7 +8,7 @@
 <ul>
     <% if (reviews.length > 0) { %>
         <% reviews.forEach(review => { %>
-            <li><%= review.review_text %> <em><small>Review Added: <%= review.review_date %></small></em></li>
+            <li><%= review.review_text %><br><em><small>Reviewed By: <%= review.reviewer_name %> on <%= review.review_date %></small></em></li>
         <% }) %>
     <% } else { %>
         <li>No reviews yet</li>

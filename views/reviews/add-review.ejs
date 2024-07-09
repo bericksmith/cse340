@@ -1,14 +1,18 @@
 <h2>Add a Review for <%= vehicle.inv_make %> <%= vehicle.inv_model %></h2>
+
 <div>
     <p><strong>Make:</strong> <%= vehicle.inv_make %></p>
     <p><strong>Model:</strong> <%= vehicle.inv_model %></p>
     <p><strong>Year:</strong> <%= vehicle.inv_year %></p>
     <p><strong>Price:</strong> $<%= vehicle.inv_price.toLocaleString() %></p>
 </div>
-
+<div class="form-container">
 <form action="/reviews/add" method="POST">
+    <fieldset>
     <input type="hidden" name="inv_id" value="<%= inv_id %>">
     <input type="hidden" name="account_id" value="<%= account_id %>">
-    <textarea name="review_text" required placeholder="Write your review here..."></textarea>
-    <button type="submit">Submit Review</button>
+    <textarea name="review_text" required placeholder="Write your review here..." cols="35"></textarea>
+    <button type="submit" class="form-button">Submit Review</button>
+    </fieldset>
 </form>
+</div>
