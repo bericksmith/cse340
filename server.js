@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const connectFlash = require("connect-flash");
 const expressMessages = require("express-messages");
-const connectPgSimple = require("connect-pg-simple");
+const connectPgSimple = require("connect-pg-simple")(session);
 const pool = require('./database/');
 const utilities = require("./utilities/");
 const validate = require("./utilities/account-validation");
@@ -16,13 +16,14 @@ const baseController = require("./controllers/baseController");
 const staticRoutes = require("./routes/static");
 const inventoryRoutes = require("./routes/inventoryRoute");
 const accountRoutes = require("./routes/accountRoute");
+const reviewRoutes = require("./routes/reviewRoute");
 const errorRoutes = require("./routes/errorRoute");
 
 const app = express();
 
 // Session setup
 app.use(session({
-  store: new (connectPgSimple(session))({
+  store: new connectPgSimple({
     createTableIfMissing: true,
     pool,
   }),
@@ -60,6 +61,7 @@ app.use(staticRoutes);
 app.get("/", utilities.handleErrors(baseController.buildHome));
 app.use('/inv', inventoryRoutes);
 app.use('/account', accountRoutes);
+app.use('/reviews', reviewRoutes);  // Ensure this line is included
 app.use('/error', errorRoutes);
 
 // 404 error handling route

@@ -531,6 +531,21 @@ fieldset {
   margin: 0;
 }
 
+
+.review-container{
+  margin: 0 auto;
+  padding: 10px;
+  background-color:#bcdaf3;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+.review-container h2{
+  font-size: 1.35rem;
+  margin: 0px;
+}
+
+
+
 @media (min-width: 768px) and (max-width: 1024px) {
   h1 {
     font-size: 2rem;

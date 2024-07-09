@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model");
+const reviewModel = require("../models/review-model");
 const utilities = require("../utilities/");
 const invCont = {};
 
@@ -260,6 +261,32 @@ invCont.editInventoryView = async function (req, res, next) {
     inv_color: itemData.inv_color,
     classification_id: itemData.classification_id,
   });
+};
+
+invCont.showInventoryDetail = async function (req, res, next) {
+  try {
+    const invId = req.params.invId;
+    const vehicle = await invModel.getInventoryItemById(invId);
+    if (!vehicle) {
+      throw { status: 404, message: "Vehicle not found" };
+    }
+    const htmlContent = utilities.formatInventoryDetail(vehicle);
+    const nav = await utilities.getNav();
+
+    // Fetch reviews for the inventory item
+    const reviews = await reviewModel.getReviewsByInventoryId(invId);
+
+    res.render("./inventory/detail", {
+      title: `${vehicle.inv_make} ${vehicle.inv_model}`,
+      nav,
+      htmlContent,
+      vehicle, // Pass the vehicle object to the view
+      reviews, // Pass reviews to the view
+      account_id: req.session.accountData ? req.session.accountData.id : null // Pass account ID to the view if logged in
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = invCont;

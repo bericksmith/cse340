@@ -1,3 +1,21 @@
 <div class="container">
     <%- htmlContent %>
 </div>
+
+
+<div class="review-container">
+<h2>Vehicle Reviews</h2>
+<ul>
+    <% if (reviews.length > 0) { %>
+        <% reviews.forEach(review => { %>
+            <li><%= review.review_text %> <em><small>Review Added: <%= review.review_date %></small></em></li>
+        <% }) %>
+    <% } else { %>
+        <li>No reviews yet</li>
+    <% } %>
+</ul>
+
+<% if (account_id) { %>
+  <a href="/reviews/add?inv_id=<%= vehicle.inv_id %>&account_id=<%= account_id %>">Add Your Review</a>
+<% } %>
+</div>

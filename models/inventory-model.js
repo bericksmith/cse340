@@ -66,6 +66,15 @@ async function addInventory(classification_id, inv_make, inv_model, inv_descript
 };
 
 
+module.exports = {
+  getInventoryItemById: async (inv_id) => {
+    const sql = `SELECT * FROM inventory WHERE inv_id = $1`;
+    const data = await pool.query(sql, [inv_id]);
+    return data.rows[0];
+  },
+};
+
+
 
 module.exports = {getClassifications, getInventoryByClassificationId, getInventoryItemById, addClassification, addInventory};
 
