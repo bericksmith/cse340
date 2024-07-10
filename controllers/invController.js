@@ -302,4 +302,41 @@ invCont.showInventoryDetail = async function (req, res, next) {
   }
 };
 
+// Function to build delete confirmation view
+invCont.buildDeleteConfirm = async function (req, res, next) {
+  try {
+    const invId = req.params.inv_id;
+    const vehicle = await invModel.getInventoryItemById(invId);
+    if (!vehicle) {
+      throw { status: 404, message: "Vehicle not found" };
+    }
+    const nav = await utilities.getNav();
+    res.render("./inventory/delete-confirm", {
+      title: `Delete ${vehicle.inv_make} ${vehicle.inv_model}`,
+      nav,
+      vehicle,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Function to delete inventory item
+invCont.deleteInventoryItem = async function (req, res, next) {
+  try {
+    const invId = parseInt(req.body.inv_id);
+    const deleteResult = await invModel.deleteInventoryItem(invId);
+    if (deleteResult.rowCount > 0) {
+      req.flash("success", "Inventory item deleted successfully.");
+      res.redirect("/inv");
+    } else {
+      req.flash("error", "Failed to delete inventory item.");
+      res.redirect(`/inv/delete/${invId}`);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 module.exports = invCont;

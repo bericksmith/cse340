@@ -66,5 +66,15 @@ router.post(
     classValidate.checkInvData, 
     utilities.handleErrors(invController.updateInventory))
 
+// Delete confirmation route
+router.get(
+    "/delete/:inv_id", 
+    utilities.handleErrors(invController.buildDeleteConfirm));
+
+// Delete item route
+router.post(
+    "/delete", 
+    utilities.handleErrors(invController.deleteInventoryItem));
+
 module.exports = router
 
