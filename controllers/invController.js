@@ -327,7 +327,7 @@ invCont.deleteInventoryItem = async function (req, res, next) {
     const invId = parseInt(req.body.inv_id);
     const deleteResult = await invModel.deleteInventoryItem(invId);
     if (deleteResult.rowCount > 0) {
-      req.flash("success", "Inventory item deleted successfully.");
+      req.flash("message", "Inventory item deleted successfully.");
       res.redirect("/inv");
     } else {
       req.flash("error", "Failed to delete inventory item.");

@@ -69,11 +69,15 @@ router.post(
 // Delete confirmation route
 router.get(
     "/delete/:inv_id", 
+    utilities.checkLogin,
+    utilities.requireAdminOrEmployee,
     utilities.handleErrors(invController.buildDeleteConfirm));
 
 // Delete item route
 router.post(
     "/delete", 
+    utilities.checkLogin,
+    utilities.requireAdminOrEmployee,
     utilities.handleErrors(invController.deleteInventoryItem));
 
 module.exports = router
